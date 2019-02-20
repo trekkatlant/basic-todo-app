@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To Do App</title>
+
+<body>
+	<h1 align="center">to/do</h1>
+	<div>
+		<form action="/todo"  method="POST" align = "left">
+			<input type="text" name = "newtask" placeholder = "New task">
+			<input type="submit" value="submit">
+		</form>
+	</div>
+		<ul>	
+				{% for todo in todos %}
+					<li>
+					{% if todo.completed == false %}
+						{{todo.content}}
+						<a href = "/delete/{{todo.id}}"><button>delete</button></a>
+						<button type="button" onclick="window.location.href='{{ url_for('toggle', elem=todo['id'], status=todo['completed']) }}'">toggle</button>
+					{% else %}
+						
+						<strike> {{todo.content}}</strike>
+						<a href = "/delete/{{todo.id}}"><button>delete</button></a>
+						<button type="button" onclick="window.location.href='{{ url_for('toggle', elem=todo['id'], status=todo['completed']) }}'">toggle</button>
+					{% endif %}
+			
+					</li>
+				{% endfor %}
+			</ul>
+
+	<br><br><br>
+	<div>
+		<a href="/logout">Logout</a>
+	</div>
+</body>
+</head>
+</html>
